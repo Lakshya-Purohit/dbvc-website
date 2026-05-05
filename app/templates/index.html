@@ -1,0 +1,278 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════════════════ -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="nav-logo">🧬</span>
+        <span class="nav-title">DBVC</span>
+    </div>
+    <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#download">Download</a>
+        <a href="/demo" class="nav-cta">Try Demo →</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO SECTION
+     ═══════════════════════════════════════════════════════════ -->
+<section class="hero-section">
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+        <div class="hero-badge">🚀 Version 1.0 — Now Available for Windows</div>
+        <h1 class="hero-title">
+            Database Version Control<br>
+            <span class="gradient-text">Like Git, for Your Schema</span>
+        </h1>
+        <p class="hero-subtitle">
+            Take snapshots. Compare schemas side-by-side. Apply changes safely.
+            <br>A powerful Windows desktop app for PostgreSQL & SQL Server.
+        </p>
+        <div class="hero-actions">
+            <a href="/download" class="btn btn-primary btn-lg">
+                <i class="fab fa-windows"></i> Download for Windows
+            </a>
+            <a href="/demo" class="btn btn-outline btn-lg">
+                <i class="fas fa-play"></i> Live Demo
+            </a>
+        </div>
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-value">2</span>
+                <span class="stat-label">DB Engines</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-value">4</span>
+                <span class="stat-label">Object Types</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat">
+                <span class="stat-value">∞</span>
+                <span class="stat-label">Snapshots</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FEATURES GRID
+     ═══════════════════════════════════════════════════════════ -->
+<section id="features" class="section">
+    <div class="container">
+        <h2 class="section-title">Everything You Need</h2>
+        <p class="section-subtitle">Professional database version control, right on your desktop.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📸</div>
+                <h3>Schema Snapshots</h3>
+                <p>Capture your entire database schema at any point in time. Tables, functions, views, and triggers — all versioned like git commits.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Git-like Diffs</h3>
+                <p>Side-by-side SQL diffs with syntax highlighting. Compare snapshot vs snapshot, live DB vs snapshot, or two live databases.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Safe Apply</h3>
+                <p>Apply changes in dependency-safe order: tables → functions → views → triggers. With confirmation dialogs and rollback protection.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔌</div>
+                <h3>Multi-DB Support</h3>
+                <p>Works with PostgreSQL and SQL Server (SSMS). Save multiple connection profiles and switch between them instantly.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <h3>Detailed Logs</h3>
+                <p>Every operation logged with timestamps, levels, and context. Live log panel in the app + rotating log files on disk.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏠</div>
+                <h3>Offline-First</h3>
+                <p>No cloud required. Runs entirely on your machine. Connect to any database on your network — localhost, staging, or production.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HOW IT WORKS
+     ═══════════════════════════════════════════════════════════ -->
+<section id="how-it-works" class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Three simple steps to full database version control.</p>
+
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">01</div>
+                <div class="step-icon">🔌</div>
+                <h3>Connect</h3>
+                <p>Add your database connection profiles — host, port, database, credentials. Test the connection with one click. All stored securely on your machine.</p>
+            </div>
+            <div class="step-connector">
+                <div class="connector-line"></div>
+                <div class="connector-arrow">→</div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">02</div>
+                <div class="step-icon">📸</div>
+                <h3>Snapshot</h3>
+                <p>Take a schema snapshot with a label and message — just like a git commit. The full schema (tables, functions, views, triggers) is captured and stored locally.</p>
+            </div>
+            <div class="step-connector">
+                <div class="connector-line"></div>
+                <div class="connector-arrow">→</div>
+            </div>
+            <div class="step-card">
+                <div class="step-number">03</div>
+                <div class="step-icon">🔍</div>
+                <h3>Compare & Apply</h3>
+                <p>Compare any two snapshots or a live DB against a snapshot. See side-by-side diffs, then apply changes to the target database in safe dependency order.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DEMO CTA
+     ═══════════════════════════════════════════════════════════ -->
+<section class="section">
+    <div class="container">
+        <div class="demo-banner">
+            <div class="demo-banner-content">
+                <h2>Try the Interactive Demo</h2>
+                <p>See how DBVC compares database schemas with Monaco Editor side-by-side diffs. No database connection needed — works right in your browser.</p>
+                <a href="/demo" class="btn btn-white btn-lg">
+                    <i class="fas fa-play"></i> Open Demo →
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     DOWNLOAD SECTION
+     ═══════════════════════════════════════════════════════════ -->
+<section id="download" class="section section-alt">
+    <div class="container">
+        <h2 class="section-title">Download DBVC Desktop</h2>
+        <p class="section-subtitle">Free and open source. Runs on Windows 10/11.</p>
+
+        <div class="download-card">
+            <div class="download-icon">
+                <i class="fab fa-windows"></i>
+            </div>
+            <h3>DBVC Desktop v1.0.0</h3>
+            <p class="download-meta">Windows 10+ · 64-bit · ~45 MB</p>
+
+            <div class="download-requirements">
+                <h4>System Requirements</h4>
+                <ul>
+                    <li><i class="fas fa-check"></i> Windows 10 or later (64-bit)</li>
+                    <li><i class="fas fa-check"></i> 4 GB RAM minimum</li>
+                    <li><i class="fas fa-check"></i> Network access to your database servers</li>
+                    <li><i class="fas fa-check"></i> PostgreSQL and/or SQL Server on your network</li>
+                </ul>
+            </div>
+
+            <a href="/download" class="btn btn-primary btn-lg btn-download">
+                <i class="fas fa-download"></i> Download DBVC-Desktop.exe
+            </a>
+            <p class="download-note">
+                <i class="fas fa-shield-alt"></i>
+                No installer needed. Single portable .exe file.
+            </p>
+
+            <div class="run-instructions">
+                <h4>Quick Start</h4>
+                <div class="code-block">
+                    <div class="code-header">
+                        <span>PowerShell / Terminal</span>
+                    </div>
+                    <pre><code># 1. Download DBVC-Desktop.exe to any folder
+
+# 2. Run it
+.\DBVC-Desktop.exe
+
+# 3. Or build from source:
+git clone https://github.com/YOUR_REPO/dbvc-desktop.git
+cd dbvc-desktop
+pip install -r requirements.txt
+python main.py</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <span class="nav-logo">🧬</span>
+                <span class="nav-title">DBVC</span>
+                <p>Database Version Control for Windows</p>
+            </div>
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#download">Download</a>
+                <a href="/demo">Demo</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://github.com/YOUR_GITHUB" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <small>Made with ❤️ by Lakshya Purohit · v1.0.0</small>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Smooth scroll for nav links
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+});
+
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.navbar');
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Animate elements on scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature-card, .step-card, .download-card').forEach(el => {
+    observer.observe(el);
+});
+</script>
+
+{% endblock %}

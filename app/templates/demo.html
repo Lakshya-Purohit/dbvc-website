@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+{% block content %}
+
+<nav class="navbar">
+    <div class="nav-brand">
+        <span class="nav-logo">🧬</span>
+        <span class="nav-title">DBVC</span>
+    </div>
+    <div class="nav-links">
+        <a href="/">Home</a>
+        <a href="/#features">Features</a>
+        <a href="/#download">Download</a>
+        <a href="/demo" class="nav-cta active">Demo</a>
+    </div>
+</nav>
+
+<div class="demo-page">
+    <div class="demo-hero">
+        <h1>Interactive Demo</h1>
+        <p>Preview how DBVC compares database schemas. No database connection needed.</p>
+        <p class="demo-hint">Click "Apply (simulate)" to see objects sync. Refresh to reset.</p>
+    </div>
+
+    <div class="demo-toolbar">
+        <div class="filter-tabs">
+            <button class="active" onclick="filterDiffs('all', this)">All</button>
+            <button onclick="filterDiffs('tables', this)">Tables</button>
+            <button onclick="filterDiffs('functions', this)">Functions</button>
+            <button onclick="filterDiffs('views', this)">Views</button>
+            <button onclick="filterDiffs('triggers', this)">Triggers</button>
+        </div>
+        <div class="demo-stats">
+            <span class="stat-pill missing">{{ diffs|selectattr("status","equalto","missing_in_target")|list|length }} Missing</span>
+            <span class="stat-pill modified">{{ diffs|selectattr("status","equalto","modified")|list|length }} Modified</span>
+        </div>
+    </div>
+
+    {% for item in diffs %}
+    <div class="diff-card" data-type="{{ item.type }}" data-name="{{ item.name }}">
+        <div class="diff-card-header">
+            <h3>
+                <span class="obj-icon">
+                    {% if item.type == "tables" %}📦
+                    {% elif item.type == "functions" %}⚙️
+                    {% elif item.type == "views" %}👁️
+                    {% elif item.type == "triggers" %}⚡
+                    {% endif %}
+                </span>
+                {{ item.name }}
+                <small>({{ item.type }})</small>
+            </h3>
+            <span class="badge {{ item.status }}" id="badge-{{ loop.index }}">
+                {{ item.status.replace("_", " ").upper() }}
+            </span>
+        </div>
+
+        <div id="diff-{{ loop.index }}" class="diff-editor"
+             data-original="{{ item.target_sql | e }}"
+             data-modified="{{ item.source_sql | e }}"
+             style="height:340px;"></div>
+
+        {% if item.status in ["missing_in_target", "modified"] %}
+        <div class="diff-card-actions">
+            <button class="btn btn-apply" onclick="demoApply({{ loop.index }})" id="apply-btn-{{ loop.index }}">
+                ⚡ Apply (simulate)
+            </button>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+    <div class="demo-footer">
+        <a href="/" class="btn btn-outline">← Back to Home</a>
+        <a href="/#download" class="btn btn-primary">
+            <i class="fab fa-windows"></i> Download Desktop App
+        </a>
+    </div>
+</div>
+
+<!-- Monaco Editor -->
+<script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
+<script>
+require.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs" }});
+
+const editors = new Map();
+
+require(["vs/editor/editor.main"], function () {
+    document.querySelectorAll(".diff-editor").forEach(function (el) {
+        const original = el.dataset.original || "";
+        const modified = el.dataset.modified || "";
+
+        const originalModel = monaco.editor.createModel(original, "sql");
+        const modifiedModel = monaco.editor.createModel(modified, "sql");
+
+        const editor = monaco.editor.createDiffEditor(el, {
+            readOnly: true,
+            renderSideBySide: true,
+            automaticLayout: true,
+            minimap: { enabled: false },
+            theme: "vs-dark"
+        });
+
+        editor.setModel({ original: originalModel, modified: modifiedModel });
+        editors.set(el.id, { originalModel, modifiedModel });
+    });
+});
+
+function filterDiffs(type, btn) {
+    document.querySelectorAll(".diff-card").forEach(card => {
+        card.style.display = (type === "all" || card.dataset.type === type) ? "block" : "none";
+    });
+    document.querySelectorAll(".filter-tabs button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+}
+
+function demoApply(index) {
+    const diffEl = document.getElementById(`diff-${index}`);
+    const badge = document.getElementById(`badge-${index}`);
+    const btn = document.getElementById(`apply-btn-${index}`);
+
+    const data = editors.get(diffEl.id);
+    if (!data) return;
+
+    const newSql = diffEl.dataset.modified || "";
+    data.originalModel.setValue(newSql);
+    data.modifiedModel.setValue(newSql);
+
+    badge.textContent = "✅ APPLIED";
+    badge.className = "badge applied";
+    if (btn) {
+        btn.disabled = true;
+        btn.textContent = "✅ Applied";
+    }
+}
+</script>
+
+{% endblock %}
