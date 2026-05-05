@@ -190,6 +190,9 @@
                 <i class="fas fa-shield-alt"></i>
                 No installer needed. Single portable .exe file.
             </p>
+            <div id="github-downloads" style="text-align: center; margin-top: 15px; font-size: 0.95rem; font-weight: 600; color: var(--accent-green); display: none;">
+                <i class="fas fa-fire" style="margin-right: 5px;"></i> <span id="download-count">Loading...</span> Downloads
+            </div>
 
             <div class="run-instructions">
                 <h4>Quick Start</h4>
@@ -280,6 +283,27 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.feature-card, .step-card, .download-card').forEach(el => {
     observer.observe(el);
 });
+
+// Fetch GitHub Release Downloads
+fetch('https://api.github.com/repos/Lakshya-Purohit/dbvc-desktop/releases')
+    .then(response => response.json())
+    .then(data => {
+        let count = 0;
+        data.forEach(release => {
+            if (release.assets) {
+                release.assets.forEach(asset => {
+                    count += asset.download_count;
+                });
+            }
+        });
+        const container = document.getElementById('github-downloads');
+        const countSpan = document.getElementById('download-count');
+        if (container && countSpan) {
+            countSpan.innerText = count.toLocaleString();
+            container.style.display = 'block';
+        }
+    })
+    .catch(err => console.error('Error fetching downloads:', err));
 </script>
 
 {% endblock %}
