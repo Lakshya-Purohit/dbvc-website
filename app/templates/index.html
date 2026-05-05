@@ -23,18 +23,18 @@
 <section class="hero-section">
     <div class="hero-glow"></div>
     <div class="hero-content">
-        <div class="hero-badge">🚀 Version 1.0 — Now Available for Windows</div>
+        <div class="hero-badge">🚀 Version 1.0 — Available for Windows, Mac, and Linux</div>
         <h1 class="hero-title">
             Database Version Control<br>
             <span class="gradient-text">Like Git, for Your Schema</span>
         </h1>
         <p class="hero-subtitle">
             Take snapshots. Compare schemas side-by-side. Apply changes safely.
-            <br>A powerful Windows desktop app for PostgreSQL & SQL Server.
+            <br>A powerful desktop app for PostgreSQL & SQL Server.
         </p>
         <div class="hero-actions">
-            <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/download/v1.0.0/DBVC-Desktop.exe" class="btn btn-primary btn-lg">
-                <i class="fab fa-windows"></i> Download for Windows
+            <a href="#download" class="btn btn-primary btn-lg">
+                <i class="fas fa-download"></i> Download App
             </a>
             <a href="/demo" class="btn btn-outline btn-lg">
                 <i class="fas fa-play"></i> Live Demo
@@ -164,31 +164,41 @@
 <section id="download" class="section section-alt">
     <div class="container">
         <h2 class="section-title">Download DBVC Desktop</h2>
-        <p class="section-subtitle">Free and open source. Runs on Windows 10/11.</p>
+        <p class="section-subtitle">Free and open source. Available for Windows, Mac, and Linux.</p>
 
         <div class="download-card">
             <div class="download-icon">
-                <i class="fab fa-windows"></i>
+                <i class="fas fa-laptop-code"></i>
             </div>
-            <h3>DBVC Desktop v1.0.0</h3>
-            <p class="download-meta">Windows 10+ · 64-bit · ~45 MB</p>
+            <h3>DBVC Desktop</h3>
+            <p class="download-meta">Latest Release</p>
 
             <div class="download-requirements">
                 <h4>System Requirements</h4>
                 <ul>
-                    <li><i class="fas fa-check"></i> Windows 10 or later (64-bit)</li>
+                    <li><i class="fas fa-check"></i> Windows 10+, macOS 11+, or Linux</li>
                     <li><i class="fas fa-check"></i> 4 GB RAM minimum</li>
                     <li><i class="fas fa-check"></i> Network access to your database servers</li>
                     <li><i class="fas fa-check"></i> PostgreSQL and/or SQL Server on your network</li>
                 </ul>
             </div>
 
-            <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/download/v1.0.0/DBVC-Desktop.exe" class="btn btn-primary btn-lg btn-download">
-                <i class="fas fa-download"></i> Download DBVC-Desktop.exe
-            </a>
-            <p class="download-note">
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
+                <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/latest/download/DBVC-Desktop-Windows.exe" class="btn btn-primary btn-download" style="flex: 1; min-width: 200px; max-width: 250px;">
+                    <i class="fab fa-windows"></i> Windows
+                </a>
+                <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/latest/download/DBVC-Desktop-Mac.zip" class="btn btn-primary btn-download" style="flex: 1; min-width: 200px; max-width: 250px;">
+                    <i class="fab fa-apple"></i> Mac
+                </a>
+                <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/latest/download/DBVC-Desktop-Linux" class="btn btn-primary btn-download" style="flex: 1; min-width: 200px; max-width: 250px;">
+                    <i class="fab fa-linux"></i> Linux
+                </a>
+            </div>
+            
+            <p class="download-note" style="margin-bottom: 0;">
                 <i class="fas fa-shield-alt"></i>
-                No installer needed. Single portable .exe file.
+                No installers required. Portable binaries. <br>
+                <small style="opacity: 0.8;">(Mac users: Right-click -> Open for the first run)</small>
             </p>
             <div id="github-downloads" style="text-align: center; margin-top: 15px; font-size: 0.95rem; font-weight: 600; color: var(--accent-green); display: none;">
                 <i class="fas fa-fire" style="margin-right: 5px;"></i> <span id="download-count">Loading...</span> Downloads
@@ -198,12 +208,16 @@
                 <h4>Quick Start</h4>
                 <div class="code-block">
                     <div class="code-header">
-                        <span>PowerShell / Terminal</span>
+                        <span>Terminal / PowerShell</span>
                     </div>
-                    <pre><code># 1. Download DBVC-Desktop.exe to any folder
+                    <pre><code># 1. Download the app for your OS
 
-# 2. Run it
-.\DBVC-Desktop.exe
+# 2. Run it (Windows)
+.\DBVC-Desktop-Windows.exe
+
+# 2. Run it (Linux / Mac)
+chmod +x ./DBVC-Desktop-Linux
+./DBVC-Desktop-Linux
 
 # 3. Or build from source:
 git clone https://github.com/YOUR_REPO/dbvc-desktop.git
@@ -225,7 +239,7 @@ python main.py</code></pre>
             <div class="footer-brand">
                 <span class="nav-logo">🧬</span>
                 <span class="nav-title">DBVC</span>
-                <p style="margin-bottom: 1.5rem;">Database Version Control for Windows</p>
+                <p style="margin-bottom: 1.5rem;">Database Version Control</p>
                 <div style="padding-top: 1.5rem; border-top: 1px solid var(--border);">
                     <h4 style="color: var(--text); margin-bottom: 8px; font-size: 1.1rem;">About the Developer</h4>
                     <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">
