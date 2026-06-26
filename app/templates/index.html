@@ -12,6 +12,7 @@
     <div class="nav-links">
         <a href="#features">Features</a>
         <a href="#how-it-works">How It Works</a>
+        <a href="#why-dbvc">Why DBVC</a>
         <a href="#download">Download</a>
         <a href="/demo" class="nav-cta">Try Demo →</a>
     </div>
@@ -23,37 +24,103 @@
 <section class="hero-section">
     <div class="hero-glow"></div>
     <div class="hero-content">
-        <div class="hero-badge">🚀 Version 1.0 — Available for Windows, Mac, and Linux</div>
+        <div class="hero-badge">🚀 Version {{ latest_version }} — Available for Windows, Mac, and Linux</div>
         <h1 class="hero-title">
             Database Version Control<br>
             <span class="gradient-text">Like Git, for Your Schema</span>
         </h1>
         <p class="hero-subtitle">
-            Take snapshots. Compare schemas side-by-side. Apply changes safely.
-            <br>A powerful desktop app for PostgreSQL & SQL Server.
+            Stop writing manual migration scripts. Compare schemas side-by-side, take instant snapshots, and synchronize changes safely. An offline-first, secure desktop app for PostgreSQL.
         </p>
         <div class="hero-actions">
             <a href="#download" class="btn btn-primary btn-lg">
-                <i class="fas fa-download"></i> Download App
+                <i class="fas fa-download"></i> Download v{{ latest_version }}
             </a>
             <a href="/demo" class="btn btn-outline btn-lg">
                 <i class="fas fa-play"></i> Live Demo
             </a>
         </div>
-        <div class="hero-stats">
+        <div class="hero-stats" style="margin-bottom: 40px;">
             <div class="stat">
-                <span class="stat-value">2</span>
-                <span class="stat-label">DB Engines</span>
+                <span class="stat-value">100%</span>
+                <span class="stat-label">Offline & Secure</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat">
-                <span class="stat-value">4</span>
-                <span class="stat-label">Object Types</span>
+                <span class="stat-value">1-Click</span>
+                <span class="stat-label">Schema Syncing</span>
             </div>
             <div class="stat-divider"></div>
             <div class="stat">
-                <span class="stat-value">∞</span>
-                <span class="stat-label">Snapshots</span>
+                <span class="stat-value">Zero</span>
+                <span class="stat-label">Cloud Dependencies</span>
+            </div>
+        </div>
+
+        <!-- ── Desktop App Preview Mockup ──────────────────────── -->
+        <div class="app-preview-container">
+            <div class="app-window">
+                <div class="window-title-bar">
+                    <div class="window-dots">
+                        <span class="window-dot close"></span>
+                        <span class="window-dot minimize"></span>
+                        <span class="window-dot maximize"></span>
+                    </div>
+                    <div class="window-title-text">DBVC Desktop — Database Version Control</div>
+                </div>
+                <div class="window-body-layout">
+                    <div class="window-sidebar">
+                        <div class="mock-sidebar-title">🧬 DBVC</div>
+                        <div class="mock-sidebar-item">🔌 Connections</div>
+                        <div class="mock-sidebar-item">📸 Snapshots</div>
+                        <div class="mock-sidebar-item active">🔍 Compare</div>
+                        <div class="mock-sidebar-item">📜 History</div>
+                        <div class="mock-sidebar-item">⚡ Apply</div>
+                        <div class="mock-sidebar-item">📋 Logs</div>
+                    </div>
+                    <div class="window-main-content">
+                        <div class="mock-content-header">
+                            <div class="mock-header-left" style="text-align: left;">
+                                <h4>Compare Schemas</h4>
+                                <p style="font-size: 9px; color: #64748b; margin: 2px 0 0 0;">Compare snapshots or live databases side-by-side — like git diff.</p>
+                            </div>
+                            <div class="mock-compare-pill">Live DB ↔ Snapshot</div>
+                        </div>
+                        <div class="mock-stats-row">
+                            <div class="mock-stat-card t"><div class="num">5</div><div class="lbl">Total</div></div>
+                            <div class="mock-stat-card s"><div class="num">3</div><div class="lbl">Only in Source</div></div>
+                            <div class="mock-stat-card tg"><div class="num">0</div><div class="lbl">Only in Target</div></div>
+                            <div class="mock-stat-card m"><div class="num">2</div><div class="lbl">Modified</div></div>
+                        </div>
+                        <div class="mock-diff-card">
+                            <div class="mock-diff-header">
+                                <div class="mock-diff-title">orders <span>TABLE</span></div>
+                                <div class="mock-diff-badge">✎ MODIFIED</div>
+                            </div>
+                            <div class="mock-editor-area">
+                                <div class="mock-editor-pane left" style="text-align: left;">
+                                    <code>CREATE TABLE orders (</code>
+                                    <code>  id SERIAL PRIMARY KEY,</code>
+                                    <code>  user_id INTEGER,</code>
+                                    <code class="del">- total_amount DECIMAL(10,2),</code>
+                                    <code>  status VARCHAR(20)</code>
+                                    <code>);</code>
+                                </div>
+                                <div class="mock-editor-pane right" style="text-align: left;">
+                                    <code>CREATE TABLE orders (</code>
+                                    <code>  id SERIAL PRIMARY KEY,</code>
+                                    <code>  user_id INTEGER,</code>
+                                    <code class="ins">+ total_amount DECIMAL(12,2) NOT NULL,</code>
+                                    <code>  status VARCHAR(20)</code>
+                                    <code>);</code>
+                                </div>
+                            </div>
+                            <div class="mock-card-actions">
+                                <div class="mock-btn">⚡ Apply changes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -65,38 +132,38 @@
 <section id="features" class="section">
     <div class="container">
         <h2 class="section-title">Everything You Need</h2>
-        <p class="section-subtitle">Professional database version control, right on your desktop.</p>
+        <p class="section-subtitle">Professional database version control, engineered for speed and security.</p>
 
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">📸</div>
                 <h3>Schema Snapshots</h3>
-                <p>Capture your entire database schema at any point in time. Tables, functions, views, and triggers — all versioned like git commits.</p>
+                <p>Capture your entire database schema at any point in time. Tables, functions, views, and triggers — all versioned like git commits with custom labels and messages.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔍</div>
-                <h3>Git-like Diffs</h3>
-                <p>Side-by-side SQL diffs with syntax highlighting. Compare snapshot vs snapshot, live DB vs snapshot, or two live databases.</p>
+                <h3>Monaco-Powered Diffs</h3>
+                <p>Side-by-side SQL diffs with high-fidelity syntax highlighting. Compare snapshot vs snapshot, live database vs snapshot, or two live databases in real-time.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">⚡</div>
-                <h3>Safe Apply</h3>
-                <p>Apply changes in dependency-safe order: tables → functions → views → triggers. With confirmation dialogs and rollback protection.</p>
+                <h3>Dependency-Safe Apply</h3>
+                <p>Apply schema migrations in strict, dependency-safe order: tables first, then functions, views, and triggers. Eliminate foreign key and dependent object execution errors.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔌</div>
-                <h3>Multi-DB Support</h3>
-                <p>Works with PostgreSQL and SQL Server (SSMS). Save multiple connection profiles and switch between them instantly.</p>
+                <h3>Secure Connection Profiles</h3>
+                <p>Save multiple connection profiles and switch between them instantly. DBVC connects directly to your databases over your network — localhost, staging, or production.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📋</div>
-                <h3>Detailed Logs</h3>
-                <p>Every operation logged with timestamps, levels, and context. Live log panel in the app + rotating log files on disk.</p>
+                <h3>Live Activity Logs</h3>
+                <p>Every SQL script generation, connection test, and schema application is logged with full context. Features a live log panel in the UI and rotating log files on disk.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🏠</div>
-                <h3>Offline-First</h3>
-                <p>No cloud required. Runs entirely on your machine. Connect to any database on your network — localhost, staging, or production.</p>
+                <h3>100% Offline & Private</h3>
+                <p>No cloud account required. Your credentials, connection profiles, and database schemas never leave your local machine. Absolute security, guaranteed.</p>
             </div>
         </div>
     </div>
@@ -108,14 +175,14 @@
 <section id="how-it-works" class="section section-alt">
     <div class="container">
         <h2 class="section-title">How It Works</h2>
-        <p class="section-subtitle">Three simple steps to full database version control.</p>
+        <p class="section-subtitle">Three simple steps to take absolute control of your database migrations.</p>
 
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">01</div>
                 <div class="step-icon">🔌</div>
-                <h3>Connect</h3>
-                <p>Add your database connection profiles — host, port, database, credentials. Test the connection with one click. All stored securely on your machine.</p>
+                <h3>Connect Securely</h3>
+                <p>Add your database connection profiles (host, port, credentials). Test connection with a single click. All configuration is stored locally and securely on your device.</p>
             </div>
             <div class="step-connector">
                 <div class="connector-line"></div>
@@ -124,8 +191,8 @@
             <div class="step-card">
                 <div class="step-number">02</div>
                 <div class="step-icon">📸</div>
-                <h3>Snapshot</h3>
-                <p>Take a schema snapshot with a label and message — just like a git commit. The full schema (tables, functions, views, triggers) is captured and stored locally.</p>
+                <h3>Take a Snapshot</h3>
+                <p>Create a schema snapshot with a descriptive label and message — just like a git commit. The full schema definition is captured, formatted, and saved locally.</p>
             </div>
             <div class="step-connector">
                 <div class="connector-line"></div>
@@ -134,9 +201,64 @@
             <div class="step-card">
                 <div class="step-number">03</div>
                 <div class="step-icon">🔍</div>
-                <h3>Compare & Apply</h3>
-                <p>Compare any two snapshots or a live DB against a snapshot. See side-by-side diffs, then apply changes to the target database in safe dependency order.</p>
+                <h3>Compare & Sync</h3>
+                <p>Compare any two schemas. Review side-by-side Monaco diffs and let DBVC apply generated SQL patches in the correct dependency order with rollback protection.</p>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     WHY DBVC (COMPARISON TABLE)
+     ═══════════════════════════════════════════════════════════ -->
+<section id="why-dbvc" class="section">
+    <div class="container">
+        <h2 class="section-title">Why DBVC?</h2>
+        <p class="section-subtitle">How DBVC stacks up against traditional database migration methods.</p>
+        
+        <div class="comparison-table-wrapper">
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th class="dbvc-col">🧬 DBVC Desktop</th>
+                        <th>Manual SQL Scripts</th>
+                        <th>Heavy CLI Frameworks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Visual Side-by-Side Diffs</td>
+                        <td class="dbvc-col"><i class="fas fa-check-circle"></i> Yes (Monaco Editor)</td>
+                        <td class="others-col"><i class="fas fa-times-circle"></i> No</td>
+                        <td class="others-col"><i class="fas fa-times-circle"></i> No (Logs / Text only)</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Dependency-Safe Execution</td>
+                        <td class="dbvc-col"><i class="fas fa-check-circle"></i> Yes (Auto-ordered)</td>
+                        <td class="others-col"><i class="fas fa-times-circle"></i> No (Manual sorting)</td>
+                        <td class="others-col"><i class="fas fa-check-circle"></i> Yes (Must code manually)</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Instant Local Snapshots</td>
+                        <td class="dbvc-col"><i class="fas fa-check-circle"></i> Yes (1-Click)</td>
+                        <td class="others-col"><i class="fas fa-times-circle"></i> No (Requires pg_dump)</td>
+                        <td class="others-col"><i class="fas fa-times-circle"></i> No</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Zero Cloud & 100% Private</td>
+                        <td class="dbvc-col"><i class="fas fa-check-circle"></i> Yes (Offline-first)</td>
+                        <td class="others-col"><i class="fas fa-check-circle"></i> Yes</td>
+                        <td class="others-col"><i class="fas fa-times-circle"></i> No (Requires accounts)</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Zero Configurations & Setup</td>
+                        <td class="dbvc-col"><i class="fas fa-check-circle"></i> Yes (Portable App)</td>
+                        <td class="others-col"><i class="fas fa-check-circle"></i> Yes</td>
+                        <td class="others-col"><i class="fas fa-times-circle"></i> No (Complex XML/YAML configs)</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
@@ -144,14 +266,14 @@
 <!-- ═══════════════════════════════════════════════════════════
      DEMO CTA
      ═══════════════════════════════════════════════════════════ -->
-<section class="section">
+<section class="section section-alt">
     <div class="container">
         <div class="demo-banner">
             <div class="demo-banner-content">
-                <h2>Try the Interactive Demo</h2>
-                <p>See how DBVC compares database schemas with Monaco Editor side-by-side diffs. No database connection needed — works right in your browser.</p>
+                <h2>Experience DBVC in Your Browser</h2>
+                <p>Try the fully interactive schema diffing and sync simulation before downloading. Experience Monaco-powered side-by-side comparisons and dependency-safe apply simulations instantly.</p>
                 <a href="/demo" class="btn btn-white btn-lg">
-                    <i class="fas fa-play"></i> Open Demo →
+                    <i class="fas fa-play"></i> Open Interactive Demo →
                 </a>
             </div>
         </div>
@@ -161,47 +283,47 @@
 <!-- ═══════════════════════════════════════════════════════════
      DOWNLOAD SECTION
      ═══════════════════════════════════════════════════════════ -->
-<section id="download" class="section section-alt">
+<section id="download" class="section">
     <div class="container">
         <h2 class="section-title">Download DBVC Desktop</h2>
-        <p class="section-subtitle">Free and open source. Available for Windows, Mac, and Linux.</p>
+        <p class="section-subtitle">Free and open source. Get started in less than 30 seconds.</p>
 
         <div class="download-card">
             <div class="download-icon">
                 <i class="fas fa-laptop-code"></i>
             </div>
-            <h3>DBVC Desktop</h3>
-            <p class="download-meta">Latest Release</p>
+            <h3>DBVC Desktop v{{ latest_version }}</h3>
+            <p class="download-meta">Latest Release (Dynamic from Git)</p>
 
             <div class="download-requirements">
                 <h4>System Requirements</h4>
                 <ul>
-                    <li><i class="fas fa-check"></i> Windows 10+, macOS 11+, or Linux</li>
+                    <li><i class="fas fa-check"></i> Windows 10+ (64-bit), macOS 11+, or Linux</li>
                     <li><i class="fas fa-check"></i> 4 GB RAM minimum</li>
                     <li><i class="fas fa-check"></i> Network access to your database servers</li>
-                    <li><i class="fas fa-check"></i> PostgreSQL and/or SQL Server on your network</li>
+                    <li><i class="fas fa-check"></i> PostgreSQL database (local or remote)</li>
                 </ul>
             </div>
 
             <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px;">
                 <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/latest/download/DBVC-Desktop-Windows.exe" class="btn btn-primary btn-download" style="flex: 1; min-width: 200px; max-width: 250px;">
-                    <i class="fab fa-windows"></i> Windows
+                    <i class="fab fa-windows"></i> Windows Download
                 </a>
                 <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/latest/download/DBVC-Desktop-Mac.zip" class="btn btn-primary btn-download" style="flex: 1; min-width: 200px; max-width: 250px;">
-                    <i class="fab fa-apple"></i> Mac
+                    <i class="fab fa-apple"></i> macOS Download
                 </a>
                 <a href="https://github.com/Lakshya-Purohit/dbvc-desktop/releases/latest/download/DBVC-Desktop-Linux" class="btn btn-primary btn-download" style="flex: 1; min-width: 200px; max-width: 250px;">
-                    <i class="fab fa-linux"></i> Linux
+                    <i class="fab fa-linux"></i> Linux Download
                 </a>
             </div>
             
             <p class="download-note" style="margin-bottom: 0;">
                 <i class="fas fa-shield-alt"></i>
-                No installers required. Portable binaries. <br>
+                No installer required. Fully portable binaries. <br>
                 <small style="opacity: 0.8;">(Mac users: Right-click -> Open for the first run)</small>
             </p>
             <div id="github-downloads" style="text-align: center; margin-top: 15px; font-size: 0.95rem; font-weight: 600; color: var(--accent-green); display: none;">
-                <i class="fas fa-fire" style="margin-right: 5px;"></i> <span id="download-count">Loading...</span> Downloads
+                <i class="fas fa-fire" style="margin-right: 5px;"></i> 🔥 Join <span id="download-count">Loading...</span> developers using DBVC!
             </div>
 
             <div class="run-instructions">
@@ -210,17 +332,15 @@
                     <div class="code-header">
                         <span>Terminal / PowerShell</span>
                     </div>
-                    <pre><code># 1. Download the app for your OS
-
-# 2. Run it (Windows)
-.\DBVC-Desktop-Windows.exe
-
-# 2. Run it (Linux / Mac)
+                    <pre><code># 1. Download the executable for your operating system
+# 2. Grant execution permission (Linux / macOS)
 chmod +x ./DBVC-Desktop-Linux
+
+# 3. Launch the application
 ./DBVC-Desktop-Linux
 
-# 3. Or build from source:
-git clone https://github.com/YOUR_REPO/dbvc-desktop.git
+# Or run from source in seconds:
+git clone https://github.com/Lakshya-Purohit/dbvc-desktop.git
 cd dbvc-desktop
 pip install -r requirements.txt
 python main.py</code></pre>
@@ -240,7 +360,7 @@ python main.py</code></pre>
                 <span class="nav-logo">🧬</span>
                 <span class="nav-title">DBVC</span>
                 <p style="margin-bottom: 1.5rem;">Database Version Control</p>
-                <div style="padding-top: 1.5rem; border-top: 1px solid var(--border);">
+                <div style="padding-top: 1.5rem; border-top: 1px solid var(--border); text-align: left;">
                     <h4 style="color: var(--text); margin-bottom: 8px; font-size: 1.1rem;">About the Developer</h4>
                     <p style="font-size: 0.9rem; line-height: 1.6; color: var(--text-secondary);">
                         <strong>Lakshya Purohit</strong> is a Software Developer engineering scalable backend systems, real-time video, and enterprise solutions. Expert in ASP.NET Core, Angular, WebRTC, PostgreSQL, Python, and Docker.
@@ -250,6 +370,7 @@ python main.py</code></pre>
             <div class="footer-links">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How It Works</a>
+                <a href="#why-dbvc">Why DBVC</a>
                 <a href="#download">Download</a>
                 <a href="/demo">Demo</a>
                 <a href="https://lakhsyapurohit.online/" target="_blank">Portfolio</a>
@@ -264,7 +385,7 @@ python main.py</code></pre>
             </div>
         </div>
         <div class="footer-bottom">
-            <small>Made with ❤️ by <a href="https://lakhsyapurohit.online/" target="_blank" style="color: var(--accent-green); text-decoration: none; font-weight: 600;">Lakshya Purohit</a> · v1.0.0</small>
+            <small>Made with ❤️ by <a href="https://lakhsyapurohit.online/" target="_blank" style="color: var(--accent-green); text-decoration: none; font-weight: 600;">Lakshya Purohit</a> · v{{ latest_version }}</small>
         </div>
     </div>
 </footer>

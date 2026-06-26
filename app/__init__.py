@@ -14,4 +14,9 @@ def create_app():
     app.register_blueprint(demo_bp)
     app.register_blueprint(download_bp)
 
+    @app.context_processor
+    def inject_version():
+        from app.version import get_latest_version
+        return dict(latest_version=get_latest_version())
+
     return app

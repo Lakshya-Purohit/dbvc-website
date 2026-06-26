@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 
+<!-- ═══════════════════════════════════════════════════════════
+     NAVIGATION
+     ═══════════════════════════════════════════════════════════ -->
 <nav class="navbar">
     <div class="nav-brand">
         <span class="nav-logo">🧬</span>
@@ -9,36 +12,73 @@
     <div class="nav-links">
         <a href="/">Home</a>
         <a href="/#features">Features</a>
+        <a href="/#why-dbvc">Why DBVC</a>
         <a href="/#download">Download</a>
         <a href="/demo" class="nav-cta active">Demo</a>
     </div>
 </nav>
 
+<!-- ═══════════════════════════════════════════════════════════
+     DEMO INTERACTION SCREEN
+     ═══════════════════════════════════════════════════════════ -->
 <div class="demo-page">
     <div class="demo-hero">
-        <h1>Interactive Demo</h1>
-        <p>Preview how DBVC compares database schemas. No database connection needed.</p>
-        <p class="demo-hint">Click "Apply (simulate)" to see objects sync. Refresh to reset.</p>
+        <h1 class="gradient-text" style="font-size: 40px; font-weight: 800; letter-spacing: -1px; margin-bottom: 12px;">Interactive Demo</h1>
+        <p style="color: var(--text-secondary); font-size: 16px;">Experience how DBVC compares database schemas. No database connections required.</p>
+        <p class="demo-hint">Click "⚡ Apply (simulate)" on any card to synchronize that object. Watch the live stats update instantly.</p>
+    </div>
+
+    <!-- ── Desktop-inspired Summary Stats Panel ──────────────── -->
+    <div class="stats-container-card">
+        <div class="stat-item">
+            <span class="stat-item-number total" id="stat-total-val">{{ diffs|length }}</span>
+            <span class="stat-item-label">Total Diffs</span>
+        </div>
+        <div class="stat-vertical-divider"></div>
+        <div class="stat-item">
+            <span class="stat-item-number source" id="stat-source-val">{{ diffs|selectattr("status","equalto","missing_in_target")|list|length }}</span>
+            <span class="stat-item-label">Only in Source</span>
+        </div>
+        <div class="stat-vertical-divider"></div>
+        <div class="stat-item">
+            <span class="stat-item-number target" id="stat-target-val">{{ diffs|selectattr("status","equalto","missing_in_source")|list|length }}</span>
+            <span class="stat-item-label">Only in Target</span>
+        </div>
+        <div class="stat-vertical-divider"></div>
+        <div class="stat-item">
+            <span class="stat-item-number modified" id="stat-modified-val">{{ diffs|selectattr("status","equalto","modified")|list|length }}</span>
+            <span class="stat-item-label">Modified</span>
+        </div>
     </div>
 
     <div class="demo-toolbar">
+        <!-- ── Dynamic Filter Pills ────────────────────────── -->
         <div class="filter-tabs">
-            <button class="active" onclick="filterDiffs('all', this)">All</button>
-            <button onclick="filterDiffs('tables', this)">Tables</button>
-            <button onclick="filterDiffs('functions', this)">Functions</button>
-            <button onclick="filterDiffs('views', this)">Views</button>
-            <button onclick="filterDiffs('triggers', this)">Triggers</button>
-        </div>
-        <div class="demo-stats">
-            <span class="stat-pill missing">{{ diffs|selectattr("status","equalto","missing_in_target")|list|length }} Missing</span>
-            <span class="stat-pill modified">{{ diffs|selectattr("status","equalto","modified")|list|length }} Modified</span>
+            <button class="active" onclick="filterDiffs('all', this)">
+                All  ({{ diffs|length }})
+            </button>
+            <button onclick="filterDiffs('tables', this)">
+                Tables  ({{ diffs|selectattr("type","equalto","tables")|list|length }})
+            </button>
+            <button onclick="filterDiffs('functions', this)">
+                Functions  ({{ diffs|selectattr("type","equalto","functions")|list|length }})
+            </button>
+            <button onclick="filterDiffs('views', this)">
+                Views  ({{ diffs|selectattr("type","equalto","views")|list|length }})
+            </button>
+            <button onclick="filterDiffs('triggers', this)">
+                Triggers  ({{ diffs|selectattr("type","equalto","triggers")|list|length }})
+            </button>
         </div>
     </div>
 
+    <!-- ── Diff Cards Container ──────────────────────────────── -->
     {% for item in diffs %}
-    <div class="diff-card" data-type="{{ item.type }}" data-name="{{ item.name }}">
+    <div class="diff-card {{ item.status }}" data-type="{{ item.type }}" data-name="{{ item.name }}" id="card-{{ loop.index }}">
+        
+        <!-- ── Desktop-aligned Card Header ────────────────────── -->
         <div class="diff-card-header">
-            <h3>
+            <div class="header-left">
                 <span class="obj-icon">
                     {% if item.type == "tables" %}📦
                     {% elif item.type == "functions" %}⚙️
@@ -46,24 +86,58 @@
                     {% elif item.type == "triggers" %}⚡
                     {% endif %}
                 </span>
-                {{ item.name }}
-                <small>({{ item.type }})</small>
-            </h3>
+                <span class="obj-name">{{ item.name }}</span>
+                <span class="badge-type-tag">
+                    {% if item.type == "tables" %}TABLE
+                    {% elif item.type == "functions" %}FUNCTION
+                    {% elif item.type == "views" %}VIEW
+                    {% elif item.type == "triggers" %}TRIGGER
+                    {% else %}{{ item.type | upper }}
+                    {% endif %}
+                </span>
+            </div>
             <span class="badge {{ item.status }}" id="badge-{{ loop.index }}">
-                {{ item.status.replace("_", " ").upper() }}
+                {% if item.status == "missing_in_target" %}
+                    ⚠ ONLY IN SOURCE
+                {% elif item.status == "missing_in_source" %}
+                    ⚠ ONLY IN TARGET
+                {% elif item.status == "modified" %}
+                    ✎ MODIFIED
+                {% else %}
+                    {{ item.status.replace("_", " ").upper() }}
+                {% endif %}
             </span>
         </div>
 
+        <!-- ── Desktop-aligned Direction Indicator ────────────── -->
+        {% if item.status == "missing_in_target" %}
+        <div class="direction-indicator source-only" id="direction-{{ loop.index }}">
+            ◀ SOURCE only — object exists in source database, but is missing from target
+        </div>
+        {% elif item.status == "missing_in_source" %}
+        <div class="direction-indicator target-only" id="direction-{{ loop.index }}">
+            ▶ TARGET only — object exists in target database, but is missing from source
+        </div>
+        {% elif item.status == "modified" %}
+        <div class="direction-indicator modified-indicator" id="direction-{{ loop.index }}">
+            🔄 MODIFIED — object exists in both source and target, but schema definitions differ
+        </div>
+        {% endif %}
+
+        <!-- ── Monaco Diff Editor ─────────────────────────────── -->
         <div id="diff-{{ loop.index }}" class="diff-editor"
              data-original="{{ item.target_sql | e }}"
              data-modified="{{ item.source_sql | e }}"
-             style="height:340px;"></div>
+             data-status="{{ item.status }}"
+             style="height:320px;"></div>
 
         {% if item.status in ["missing_in_target", "modified"] %}
-        <div class="diff-card-actions">
-            <button class="btn btn-apply" onclick="demoApply({{ loop.index }})" id="apply-btn-{{ loop.index }}">
-                ⚡ Apply (simulate)
-            </button>
+        <div class="diff-card-actions" id="actions-{{ loop.index }}">
+            <div style="display: flex; justify-content: flex-end;">
+                <button class="btn btn-apply" onclick="demoApply({{ loop.index }})" id="apply-btn-{{ loop.index }}">
+                    ⚡ Apply (simulate)
+                </button>
+            </div>
         </div>
         {% endif %}
     </div>
@@ -77,7 +151,7 @@
     </div>
 </div>
 
-<!-- Monaco Editor -->
+<!-- Monaco Editor Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.js"></script>
 <script>
 require.config({ paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs" }});
@@ -105,6 +179,7 @@ require(["vs/editor/editor.main"], function () {
     });
 });
 
+// Dynamic Client-side Filtering
 function filterDiffs(type, btn) {
     document.querySelectorAll(".diff-card").forEach(card => {
         card.style.display = (type === "all" || card.dataset.type === type) ? "block" : "none";
@@ -113,23 +188,57 @@ function filterDiffs(type, btn) {
     btn.classList.add("active");
 }
 
+// Client-side Interactive Apply Simulation with Dynamic Stat Counter Updates
 function demoApply(index) {
     const diffEl = document.getElementById(`diff-${index}`);
     const badge = document.getElementById(`badge-${index}`);
     const btn = document.getElementById(`apply-btn-${index}`);
+    const card = document.getElementById(`card-${index}`);
+    const direction = document.getElementById(`direction-${index}`);
 
     const data = editors.get(diffEl.id);
     if (!data) return;
 
+    // Fetch original status
+    const status = diffEl.dataset.status;
+
+    // Simulate database update in Monaco editor
     const newSql = diffEl.dataset.modified || "";
     data.originalModel.setValue(newSql);
     data.modifiedModel.setValue(newSql);
 
+    // Dynamic UI styling updates
     badge.textContent = "✅ APPLIED";
     badge.className = "badge applied";
+    
+    card.className = "diff-card applied";
+    
+    if (direction) {
+        direction.textContent = "✅ Synced — target database object is now up to date with source";
+        direction.className = "direction-indicator synced";
+    }
+
     if (btn) {
         btn.disabled = true;
         btn.textContent = "✅ Applied";
+    }
+
+    // Dynamic Summary Stats Counter Decrementation
+    const statTotal = document.getElementById("stat-total-val");
+    const statSource = document.getElementById("stat-source-val");
+    const statModified = document.getElementById("stat-modified-val");
+
+    if (statTotal) {
+        let total = parseInt(statTotal.textContent) || 0;
+        if (total > 0) statTotal.textContent = (total - 1).toString();
+    }
+
+    if (status === "missing_in_target" && statSource) {
+        let source = parseInt(statSource.textContent) || 0;
+        if (source > 0) statSource.textContent = (source - 1).toString();
+    } else if (status === "modified" && statModified) {
+        let modified = parseInt(statModified.textContent) || 0;
+        if (modified > 0) statModified.textContent = (modified - 1).toString();
     }
 }
 </script>
